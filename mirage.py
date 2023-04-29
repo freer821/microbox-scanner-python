@@ -140,7 +140,6 @@ class Base:
 		self.last_dir = os.path.expanduser("~")
 		self.fixed_dir = os.path.expanduser("~")
 		self.current_dir = None
-		self.remote_url = 'http://172.16.150.1:8766/scan'
 		self.image_list = []
 		self.open_mode = self.open_mode_smart
 		self.last_mode = self.open_mode_smart
@@ -184,6 +183,9 @@ class Base:
 		self.recentfiles = ["", "", "", "", ""]
 		self.screenshot_delay = 2
 		self.thumbpane_bottom_coord_loaded = 0
+		# Settings, scanner:
+		self.scanner_ip = ""
+		self.scanner_image_type = 0
 
 		# Read any passed options/arguments:
 		try:
@@ -282,6 +284,12 @@ class Base:
 			self.thumbnail_size = conf.getint('prefs', 'thumbsize')
 		if conf.has_option('prefs', 'screenshot_delay'):
 			self.screenshot_delay = conf.getint('prefs', 'screenshot_delay')
+
+		if conf.has_option('scanner', 'ip'):
+			self.scanner_ip = conf.get('scanner', 'ip')
+		if conf.has_option('scanner', 'image_type'):
+			self.scanner_image_type = conf.getint('scanner', 'image_type')
+
 		if conf.has_option('actions', 'num_actions'):
 			num_actions = conf.getint('actions', 'num_actions')
 			self.action_names = []
@@ -344,6 +352,27 @@ class Base:
 		iconset = gtk.IconSet(pixbuf)
 		factory.add('rotate-right', iconset)
 		factory.add_default()
+
+		pixbuf = gtk.gdk.pixbuf_new_from_file(self.find_path('stock_crop.png'))
+		iconset = gtk.IconSet(pixbuf)
+		factory.add('crop', iconset)
+		factory.add_default()
+
+		pixbuf = gtk.gdk.pixbuf_new_from_file(self.find_path('stock_flip-horizontally.png'))
+		iconset = gtk.IconSet(pixbuf)
+		factory.add('flip-horizontally', iconset)
+		factory.add_default()
+
+		pixbuf = gtk.gdk.pixbuf_new_from_file(self.find_path('stock_flip-vertically.png'))
+		iconset = gtk.IconSet(pixbuf)
+		factory.add('flip-vertically', iconset)
+		factory.add_default()
+
+		pixbuf = gtk.gdk.pixbuf_new_from_file(self.find_path('stock_resize.png'))
+		iconset = gtk.IconSet(pixbuf)
+		factory.add('resize', iconset)
+		factory.add_default()
+
 		try:
 			test = gtk.Button("", gtk.STOCK_LEAVE_FULLSCREEN)
 			leave_fullscreen_icon = gtk.STOCK_LEAVE_FULLSCREEN
@@ -354,6 +383,11 @@ class Base:
 			fullscreen_icon = 'fullscreen'
 		rotate_left_icon = 'rotate-left'
 		rotate_right_icon = 'rotate-right'
+
+		crop_icon = 'crop'
+		flip_horizontally_icon = 'flip-horizontally'
+		flip_vertically_icon = 'flip-vertically'
+		resize_icon = 'resize'
 
 		actions = (
 			('FileMenu', None, _('_File')),
@@ -367,8 +401,8 @@ class Base:
 			('Open Folder', gtk.STOCK_DIRECTORY, _('Open _Folder...'), '<Ctrl>F', _('Open Folder'), self.open_folder),
 			('Save', gtk.STOCK_SAVE, _('_Save Image'), '<Ctrl>S', _('Save Image'), self.save_image),
 			('Save As', gtk.STOCK_SAVE, _('Save Image _As...'), '<Shift><Ctrl>S', _('Save Image As'), self.save_image_as),
-			('Crop', None, _('_Crop...'), None, _('Crop Image'), self.crop_image),
-			('Resize', None, _('R_esize...'), None, _('Resize Image'), self.resize_image),
+			('Crop', crop_icon, _('_Crop...'), None, _('Crop Image'), self.crop_image),
+			('Resize', resize_icon, _('R_esize...'), None, _('Resize Image'), self.resize_image),
 			('Saturation', None, _('_Saturation...'), None, _('Modify saturation'), self.saturation),
 			('Quit', gtk.STOCK_QUIT, _('_Quit'), '<Ctrl>Q', _('Quit'), self.exit_app),
 			('Previous Image', gtk.STOCK_GO_BACK, _('_Previous Image'), 'Left', _('Previous Image'), self.goto_prev_image),
@@ -384,8 +418,8 @@ class Base:
 			('1:1', gtk.STOCK_ZOOM_100, _('_1:1'), '<Ctrl>1', _('1:1'), self.zoom_1_to_1_action),
 			('Rotate Left', rotate_left_icon, _('Rotate _Left'), '<Ctrl>Left', _('Rotate Left'), self.rotate_left),
 			('Rotate Right', rotate_right_icon, _('Rotate _Right'), '<Ctrl>Right', _('Rotate Right'), self.rotate_right),
-			('Flip Vertically', None, _('Flip _Vertically'), '<Ctrl>V', _('Flip Vertically'), self.flip_image_vert),
-			('Flip Horizontally', None, _('Flip _Horizontally'), '<Ctrl>H', _('Flip Horizontally'), self.flip_image_horiz),
+			('Flip Vertically', flip_vertically_icon, _('Flip _Vertically'), '<Ctrl>V', _('Flip Vertically'), self.flip_image_vert),
+			('Flip Horizontally', flip_horizontally_icon, _('Flip _Horizontally'), '<Ctrl>H', _('Flip Horizontally'), self.flip_image_horiz),
 			('About', gtk.STOCK_ABOUT, _('_About'), None, _('About'), self.show_about),
 			('Contents', gtk.STOCK_HELP, _('_Contents'), 'F1', _('Contents'), self.show_help),
 			('Preferences', gtk.STOCK_PREFERENCES, _('_Preferences...'), '<Ctrl>P', _('Preferences'), self.show_prefs),
@@ -546,6 +580,10 @@ class Base:
 			    <toolitem action="In"/>
 			    <toolitem action="Rotate Left"/>
 			    <toolitem action="Rotate Right"/>
+				<toolitem action="Flip Vertically"/>
+			    <toolitem action="Flip Horizontally"/>
+			    <toolitem action="Crop"/>
+			    <toolitem action="Resize"/>
 			    <toolitem action="1:1"/>
 			    <toolitem action="Fit"/>
 			  </toolbar>
@@ -1317,6 +1355,10 @@ class Base:
 		self.UIManager.get_widget('/MainToolbar/Fit').set_sensitive(enable)
 		self.UIManager.get_widget('/MainToolbar/Rotate Left').set_sensitive(enable)
 		self.UIManager.get_widget('/MainToolbar/Rotate Right').set_sensitive(enable)
+		self.UIManager.get_widget('/MainToolbar/Flip Vertically').set_sensitive(enable)
+		self.UIManager.get_widget('/MainToolbar/Flip Horizontally').set_sensitive(enable)
+		self.UIManager.get_widget('/MainToolbar/Crop').set_sensitive(enable)
+		self.UIManager.get_widget('/MainToolbar/Resize').set_sensitive(enable)
 		self.UIManager.get_widget('/Popup/1:1').set_sensitive(enable)
 		self.UIManager.get_widget('/Popup/Fit').set_sensitive(enable)
 		self.UIManager.get_widget('/MainMenu/FileMenu/Save As').set_sensitive(enable)
@@ -1507,6 +1549,7 @@ class Base:
 		return
 
 	def save_settings(self):
+		print "save_settings"
 		conf = ConfigParser.ConfigParser()
 		conf.add_section('window')
 		conf.set('window', 'w', self.window.get_allocation().width)
@@ -1539,6 +1582,9 @@ class Base:
 		conf.set('prefs', 'start_in_fullscreen', self.start_in_fullscreen)
 		conf.set('prefs', 'thumbsize', self.thumbnail_size)
 		conf.set('prefs', 'screenshot_delay', self.screenshot_delay)
+		conf.add_section('scanner')
+		conf.set('scanner', 'ip', self.scanner_ip)
+		conf.set('scanner', 'image_type', self.scanner_image_type)
 		conf.add_section('actions')
 		conf.set('actions', 'num_actions', len(self.action_names))
 		for i in range(len(self.action_names)):
@@ -1557,7 +1603,6 @@ class Base:
 
 		# Also, save accel_map:
 		gtk.accel_map_save(self.config_dir + '/accel_map')
-
 		return
 
 	def delete_event(self, widget, event, data=None):
@@ -2708,6 +2753,36 @@ class Base:
 		table_image.attach(gtk.Label(), 1, 3, 12, 13,  gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 30, 0)
 		table_image.attach(gtk.Label(), 1, 3, 13, 14,  gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 30, 0)
 		table_image.attach(gtk.Label(), 1, 3, 14, 15,  gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 30, 0)
+
+		# "scanner" tab:
+		table_scanner = gtk.Table(14, 2, False)
+		hbox_ip_wrap = gtk.HBox()
+		hbox_ip_wrap.pack_start(gtk.Label(_("Server IP:")), False, False, 0)
+		scanner_ip_field = gtk.Entry()
+		scanner_ip_field.set_text(self.scanner_ip)
+		scanner_ip_field.connect("changed", self.save_scanner_ip)
+		hbox_ip_wrap.pack_start(scanner_ip_field, False, False, 5)
+		hbox_image_types_wrap = gtk.HBox()
+		hbox_image_types_wrap.pack_start(gtk.Label(_("Image Type:")), False, False, 0)
+		combobox_image_type = gtk.combo_box_new_text()
+		combobox_image_type.append_text(_("TIFF"))
+		combobox_image_type.append_text(_("JPEG"))
+		combobox_image_type.append_text(_("PDF"))
+		combobox_image_type.set_active(self.scanner_image_type)
+		hbox_image_types_wrap.pack_start(combobox_image_type, False, False, 5)
+
+		table_scanner.attach(gtk.Label(), 1, 2, 1, 2, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
+		table_scanner.attach(hbox_ip_wrap, 1, 2, 2, 3, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 15, 0)
+		table_scanner.attach(gtk.Label(), 1, 2, 3, 4, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
+		table_scanner.attach(hbox_image_types_wrap, 1, 2, 4, 5, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 30, 0)
+		table_scanner.attach(gtk.Label(), 1, 2, 5, 6, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
+		table_scanner.attach(gtk.Label(), 1, 2, 8, 9, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
+		table_scanner.attach(gtk.Label(), 1, 2, 9, 10, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 30, 0)
+		table_scanner.attach(gtk.Label(), 1, 2, 10, 11, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 30, 0)
+		table_scanner.attach(gtk.Label(), 1, 2, 11, 12, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
+		table_scanner.attach(gtk.Label(), 1, 2, 12, 13, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
+		table_scanner.attach(gtk.Label(), 1, 2, 13, 14, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
+
 		# Add tabs:
 		notebook = gtk.Notebook()
 		notebook.append_page(table_behavior, gtk.Label(_("Behavior")))
@@ -2715,6 +2790,7 @@ class Base:
 		notebook.append_page(table_settings, gtk.Label(_("Interface")))
 		notebook.append_page(table_slideshow, gtk.Label(_("Slideshow")))
 		notebook.append_page(table_image, gtk.Label(_("Image")))
+		notebook.append_page(table_scanner, gtk.Label(_("Scanner")))
 		notebook.set_current_page(0)
 		hbox = gtk.HBox()
 		self.prefs_dialog.vbox.pack_start(hbox, False, False, 7)
@@ -2771,6 +2847,10 @@ class Base:
 			elif not self.preloading_images:
 				self.preloadimg_next_in_list = -1
 				self.preloadimg_prev_in_list = -1
+			self.scanner_image_type = combobox_image_type.get_active()
+
+	def save_scanner_ip(self, widget):
+		self.scanner_ip = widget.get_text()
 
 	def prefs_use_fixed_dir_clicked(self, button):
 		if button.get_active():
@@ -3118,7 +3198,8 @@ class Base:
 		if self.current_dir:
 			self.set_scan_sensitivity(False)
 			dialog = self.show_loading_dialog()
-			with requests.get(self.remote_url, stream=True) as r:
+			remote_url = "http://" + self.scanner_ip + ":8766/scan"
+			with requests.get(remote_url, stream=True) as r:
 				r.raise_for_status()
 				file_name = self.current_dir +'/test_' + str(random.randrange(100000)) + '.tiff'
 				with open(file_name, 'wb') as f:

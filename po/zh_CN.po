@@ -264,7 +264,7 @@ msgstr "首选项...(_P)"
 
 #: mirage.py:376
 msgid "Preferences"
-msgstr "首选项"
+msgstr "设置"
 
 #: mirage.py:377
 msgid "_Full Screen"
@@ -731,7 +731,7 @@ msgstr "否"
 
 #: mirage.py:2464
 msgid "Mirage Preferences"
-msgstr "Mirage首选项"
+msgstr "Mirage设置"
 
 #: mirage.py:2470 mirage.py:2690
 msgid "Interface"
