@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import pygtk
+import requests
+
 pygtk.require('2.0')
 import gtk
 import os, sys, getopt, ConfigParser, string, gc
@@ -138,6 +140,7 @@ class Base:
 		self.last_dir = os.path.expanduser("~")
 		self.fixed_dir = os.path.expanduser("~")
 		self.current_dir = None
+		self.remote_url = 'http://172.16.150.1:8766/scan'
 		self.image_list = []
 		self.open_mode = self.open_mode_smart
 		self.last_mode = self.open_mode_smart
@@ -333,6 +336,14 @@ class Base:
 		iconset = gtk.IconSet(pixbuf)
 		factory.add('fullscreen', iconset)
 		factory.add_default()
+		pixbuf = gtk.gdk.pixbuf_new_from_file(self.find_path('stock_rotate-left.png'))
+		iconset = gtk.IconSet(pixbuf)
+		factory.add('rotate-left', iconset)
+		factory.add_default()
+		pixbuf = gtk.gdk.pixbuf_new_from_file(self.find_path('stock_rotate-right.png'))
+		iconset = gtk.IconSet(pixbuf)
+		factory.add('rotate-right', iconset)
+		factory.add_default()
 		try:
 			test = gtk.Button("", gtk.STOCK_LEAVE_FULLSCREEN)
 			leave_fullscreen_icon = gtk.STOCK_LEAVE_FULLSCREEN
@@ -341,6 +352,9 @@ class Base:
 			# This will allow gtk 2.6 users to run Mirage
 			leave_fullscreen_icon = 'leave-fullscreen'
 			fullscreen_icon = 'fullscreen'
+		rotate_left_icon = 'rotate-left'
+		rotate_right_icon = 'rotate-right'
+
 		actions = (
 			('FileMenu', None, _('_File')),
 			('EditMenu', None, _('_Edit')),
@@ -368,8 +382,8 @@ class Base:
 			('Out', gtk.STOCK_ZOOM_OUT, _('Zoom _Out'), '<Ctrl>Down', _('Zoom Out'), self.zoom_out),
 			('Fit', gtk.STOCK_ZOOM_FIT, _('Zoom To _Fit'), '<Ctrl>0', _('Fit'), self.zoom_to_fit_window_action),
 			('1:1', gtk.STOCK_ZOOM_100, _('_1:1'), '<Ctrl>1', _('1:1'), self.zoom_1_to_1_action),
-			('Rotate Left', None, _('Rotate _Left'), '<Ctrl>Left', _('Rotate Left'), self.rotate_left),
-			('Rotate Right', None, _('Rotate _Right'), '<Ctrl>Right', _('Rotate Right'), self.rotate_right),
+			('Rotate Left', rotate_left_icon, _('Rotate _Left'), '<Ctrl>Left', _('Rotate Left'), self.rotate_left),
+			('Rotate Right', rotate_right_icon, _('Rotate _Right'), '<Ctrl>Right', _('Rotate Right'), self.rotate_right),
 			('Flip Vertically', None, _('Flip _Vertically'), '<Ctrl>V', _('Flip Vertically'), self.flip_image_vert),
 			('Flip Horizontally', None, _('Flip _Horizontally'), '<Ctrl>H', _('Flip Horizontally'), self.flip_image_horiz),
 			('About', gtk.STOCK_ABOUT, _('_About'), None, _('About'), self.show_about),
@@ -523,16 +537,17 @@ class Base:
 			    </menu>
 			  </menubar>
 			  <toolbar name="MainToolbar">
-			    <toolitem action="Open Folder"/>
+			    <toolitem action="Scan"/>
 			    <separator name="FM1"/>
 			    <toolitem action="Previous2"/>
 			    <toolitem action="Next2"/>
 			    <separator name="FM2"/>
 			    <toolitem action="Out"/>
 			    <toolitem action="In"/>
+			    <toolitem action="Rotate Left"/>
+			    <toolitem action="Rotate Right"/>
 			    <toolitem action="1:1"/>
 			    <toolitem action="Fit"/>
-				<toolitem action="Scan"/>
 			  </toolbar>
 			</ui>
 			"""
@@ -1300,6 +1315,8 @@ class Base:
 		self.UIManager.get_widget('/MainMenu/EditMenu/Saturation').set_sensitive(enable)
 		self.UIManager.get_widget('/MainToolbar/1:1').set_sensitive(enable)
 		self.UIManager.get_widget('/MainToolbar/Fit').set_sensitive(enable)
+		self.UIManager.get_widget('/MainToolbar/Rotate Left').set_sensitive(enable)
+		self.UIManager.get_widget('/MainToolbar/Rotate Right').set_sensitive(enable)
 		self.UIManager.get_widget('/Popup/1:1').set_sensitive(enable)
 		self.UIManager.get_widget('/Popup/Fit').set_sensitive(enable)
 		self.UIManager.get_widget('/MainMenu/FileMenu/Save As').set_sensitive(enable)
@@ -3076,13 +3093,44 @@ class Base:
 		if event.button == 2 or event.button == 1:
 			self.change_cursor(None)
 		return True
-	
+
+	def show_loading_dialog(self):
+
+		# Create a new dialog window to hold the progress bar
+		dialog = gtk.Dialog('Scanning.....', None, gtk.DIALOG_MODAL)
+		dialog.set_size_request(200, 50)
+		label = gtk.Label('Pleas be patient!')
+		dialog.vbox.pack_start(label, True, True, 0)
+
+		# Set the dialog to be modal and show it
+		dialog.set_modal(True)
+		dialog.show_all()
+
+		return dialog
+
+	def hide_loading_dialog(self, dialog):
+		# Hide and destroy the loading dialog
+		dialog.hide()
+		dialog.destroy()
+
 	def scan(self, action):
 		# TODO: scan action
-		print self.current_dir
-		print "action scan"
+		if self.current_dir:
+			self.set_scan_sensitivity(False)
+			dialog = self.show_loading_dialog()
+			with requests.get(self.remote_url, stream=True) as r:
+				r.raise_for_status()
+				file_name = self.current_dir +'/test_' + str(random.randrange(100000)) + '.tiff'
+				with open(file_name, 'wb') as f:
+					for chunk in r.iter_content(chunk_size=8192):
+						# If you have chunk encoded response uncomment if
+						# and set chunk_size parameter to None.
+						# if chunk:
+						f.write(chunk)
+				self.expand_filelist_and_load_image([file_name])
+			self.hide_loading_dialog(dialog)
+			self.set_scan_sensitivity(True)
 
-	
 	def zoom_in(self, action):
 		if self.currimg_name != "" and self.UIManager.get_widget('/MainMenu/ViewMenu/In').get_property('sensitive'):
 			self.image_zoomed = True
