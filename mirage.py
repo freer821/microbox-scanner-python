@@ -137,6 +137,7 @@ class Base:
 		self.use_last_dir = True
 		self.last_dir = os.path.expanduser("~")
 		self.fixed_dir = os.path.expanduser("~")
+		self.current_dir = None
 		self.image_list = []
 		self.open_mode = self.open_mode_smart
 		self.last_mode = self.open_mode_smart
@@ -347,8 +348,8 @@ class Base:
 			('GoMenu', None, _('_Go')),
 			('HelpMenu', None, _('_Help')),
 			('ActionSubMenu', None, _('Custom _Actions')),
-			('Open Image', gtk.STOCK_FILE, _('_Open Image...'), '<Ctrl>O', _('Open Image'), self.open_file),
-			('Open Remote Image', gtk.STOCK_NETWORK, _('Open _Remote image...'), None, _('Open Remote Image'), self.open_file_remote),
+			# ('Open Image', gtk.STOCK_FILE, _('_Open Image...'), '<Ctrl>O', _('Open Image'), self.open_file),
+			# ('Open Remote Image', gtk.STOCK_NETWORK, _('Open _Remote image...'), None, _('Open Remote Image'), self.open_file_remote),
 			('Open Folder', gtk.STOCK_DIRECTORY, _('Open _Folder...'), '<Ctrl>F', _('Open Folder'), self.open_folder),
 			('Save', gtk.STOCK_SAVE, _('_Save Image'), '<Ctrl>S', _('Save Image'), self.save_image),
 			('Save As', gtk.STOCK_SAVE, _('Save Image _As...'), '<Shift><Ctrl>S', _('Save Image As'), self.save_image_as),
@@ -438,9 +439,7 @@ class Base:
 			  </popup>
 			  <menubar name="MainMenu">
 			    <menu action="FileMenu">
-			      <menuitem action="Open Image"/>
 			      <menuitem action="Open Folder"/>
-			      <menuitem action="Open Remote Image"/>
 			      <separator name="FM1"/>
 			      <menuitem action="Save"/>
 			      <menuitem action="Save As"/>
@@ -524,7 +523,7 @@ class Base:
 			    </menu>
 			  </menubar>
 			  <toolbar name="MainToolbar">
-			    <toolitem action="Open Image"/>
+			    <toolitem action="Open Folder"/>
 			    <separator name="FM1"/>
 			    <toolitem action="Previous2"/>
 			    <toolitem action="Next2"/>
@@ -747,6 +746,7 @@ class Base:
 		self.window.set_focus(self.layout)
 		
 		#sets the visibility of some menu entries
+		self.set_scan_sensitivity(False)
 		self.set_slideshow_sensitivities()
 		self.UIManager.get_widget('/MainMenu/MiscKeysMenuHidden').set_property('visible', False)
 		if opts != []:
@@ -1285,6 +1285,9 @@ class Base:
 		self.ss_forward.set_sensitive(enable)
 		self.ss_back.set_sensitive(enable)
 
+	def set_scan_sensitivity(self, enable):
+		self.UIManager.get_widget('/MainToolbar/Scan').set_sensitive(enable)
+
 	def set_image_sensitivities(self, enable):
 		self.set_zoom_in_sensitivities(enable)
 		self.set_zoom_out_sensitivities(enable)
@@ -1819,6 +1822,9 @@ class Base:
 	
 	def open_file_or_folder_response(self, dialog, response, isfile, recursivebutton):
 		if response == gtk.RESPONSE_OK:
+			if not isfile:
+				self.current_dir = dialog.get_current_folder()
+				self.set_scan_sensitivity(True)
 			if self.use_last_dir:
 				self.last_dir = dialog.get_current_folder()
 			if not isfile and recursivebutton.get_property('active'):
@@ -3073,7 +3079,8 @@ class Base:
 	
 	def scan(self, action):
 		# TODO: scan action
-		print "action"
+		print self.current_dir
+		print "action scan"
 
 	
 	def zoom_in(self, action):
