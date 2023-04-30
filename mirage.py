@@ -3196,21 +3196,28 @@ class Base:
 	def scan(self, action):
 		# TODO: scan action
 		if self.current_dir:
-			self.set_scan_sensitivity(False)
-			dialog = self.show_loading_dialog()
-			remote_url = "http://" + self.scanner_ip + ":8766/scan"
-			with requests.get(remote_url, stream=True) as r:
-				r.raise_for_status()
-				file_name = self.current_dir +'/test_' + str(random.randrange(100000)) + '.tiff'
-				with open(file_name, 'wb') as f:
-					for chunk in r.iter_content(chunk_size=8192):
-						# If you have chunk encoded response uncomment if
-						# and set chunk_size parameter to None.
-						# if chunk:
-						f.write(chunk)
-				self.expand_filelist_and_load_image([file_name])
-			self.hide_loading_dialog(dialog)
-			self.set_scan_sensitivity(True)
+			try:
+				self.set_scan_sensitivity(False)
+				dialog = self.show_loading_dialog()
+				remote_url = "http://" + self.scanner_ip + ":8766/scan"
+				with requests.get(remote_url, stream=True, timeout=5) as r:
+					r.raise_for_status()
+					file_name = self.current_dir + '/test_' + str(random.randrange(100000)) + '.tiff'
+					with open(file_name, 'wb') as f:
+						for chunk in r.iter_content(chunk_size=8192):
+							# If you have chunk encoded response uncomment if
+							# and set chunk_size parameter to None.
+							# if chunk:
+							f.write(chunk)
+					self.expand_filelist_and_load_image([file_name])
+			except Exception as err:
+				error_dialog = gtk.MessageDialog(self.window, gtk.DIALOG_MODAL, gtk.MESSAGE_WARNING, gtk.BUTTONS_CLOSE,
+												 _('Unable to call the Scanner Server.'))
+				error_dialog.run()
+				error_dialog.destroy()
+			finally:
+				self.hide_loading_dialog(dialog)
+				self.set_scan_sensitivity(True)
 
 	def zoom_in(self, action):
 		if self.currimg_name != "" and self.UIManager.get_widget('/MainMenu/ViewMenu/In').get_property('sensitive'):

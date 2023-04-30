@@ -1,5 +1,4 @@
-Mirage, a fast and simple GTK+ Image Viewer
-Copyright 2007 Scott Horowitz <stonecrest@gmail.com>
+MicroBox, a fast and simple GTK+ Scanner Viewer
 
 REQUIREMENTS:
 	(Required) PyGTK 2.12.0 or newer

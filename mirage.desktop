@@ -1,6 +1,6 @@
 [Desktop Entry]
-Name=Mirage
-Comment=A fast GTK+ Image Viewer
+Name=MicroBox
+Comment=A fast GTK+ Scanner Viewer
 Exec=mirage %f
 Terminal=false
 Type=Application
