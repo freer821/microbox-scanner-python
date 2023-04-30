@@ -34,7 +34,7 @@ if not os.path.exists("mo/"):
 	os.mkdir("mo/")
 for lang in ('it', 'de', 'pl', 'es', 'fr', 'ru', 'hu', 'cs', 'pt_BR', 'zh_CN', 'nl', 'ua'):
 	pofile = "po/" + lang + ".po"
-	mofile = "mo/" + lang + "/mirage.mo"
+	mofile = "mo/" + lang + "/microbox.mo"
 	if not os.path.exists("mo/" + lang + "/"):
 		os.mkdir("mo/" + lang + "/")
 	print "generating", mofile
@@ -61,7 +61,7 @@ setup(name='MicroBox',
 										'stock_rotate-right.png', 'stock_shuffle.png', 'stock_leave-fullscreen.png', 'stock_fullscreen.png', 'mirage_blank.png']),
 			('share/applications', ['microbox.desktop']),
 			('share/pixmaps', ['mirage.png']),
-			('share/locale/zh_CN/LC_MESSAGES', ['mo/zh_CN/mirage.mo'])],
+			('share/locale/zh_CN/LC_MESSAGES', ['mo/zh_CN/microbox.mo'])],
 		)
 
 # Cleanup (remove /build, /mo, and *.pyc files:
