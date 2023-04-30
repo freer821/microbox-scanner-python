@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mirage 0.7.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-30 17:54+0800\n"
+"POT-Creation-Date: 2023-05-01 01:19+0800\n"
 "PO-Revision-Date: 2006-08-18 22:08+0400\n"
 "Last-Translator: Roxana Kolosova <mavka@justos.org>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -16,775 +16,776 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: mirage.py:393
+#: microbox.py:396
 msgid "_File"
 msgstr "_Файл"
 
-#: mirage.py:394
+#: microbox.py:397
 msgid "_Edit"
 msgstr "_Правка"
 
-#: mirage.py:395
+#: microbox.py:398
 msgid "_View"
 msgstr "П_росмотр"
 
-#: mirage.py:396
+#: microbox.py:399
 msgid "_Go"
 msgstr "П_ереход"
 
-#: mirage.py:397
+#: microbox.py:400
 msgid "_Help"
 msgstr "_Справка"
 
-#: mirage.py:398
+#: microbox.py:401
 msgid "Custom _Actions"
 msgstr ""
 
-#: mirage.py:401
+#: microbox.py:404
 msgid "Open _Folder..."
 msgstr "Открыть _каталог..."
 
-#: mirage.py:401
+#: microbox.py:404
 msgid "Open Folder"
 msgstr "Открыть каталог"
 
-#: mirage.py:402
+#: microbox.py:405
 #, fuzzy
 msgid "_Save Image"
 msgstr "_Следующее изображение"
 
-#: mirage.py:402
+#: microbox.py:405
 #, fuzzy
 msgid "Save Image"
 msgstr "Последнее изображение"
 
-#: mirage.py:403
+#: microbox.py:406
 #, fuzzy
 msgid "Save Image _As..."
 msgstr "_Открыть изображение..."
 
-#: mirage.py:403
+#: microbox.py:406
 #, fuzzy
 msgid "Save Image As"
 msgstr "Изображения"
 
-#: mirage.py:404
+#: microbox.py:407
 #, fuzzy
 msgid "_Crop..."
 msgstr "_Открыть изображение..."
 
-#: mirage.py:404 mirage.py:3447
+#: microbox.py:407 microbox.py:3450
 #, fuzzy
 msgid "Crop Image"
 msgstr "Открыть изображение"
 
-#: mirage.py:405
+#: microbox.py:408
 #, fuzzy
 msgid "R_esize..."
 msgstr "_Открыть изображение..."
 
-#: mirage.py:405 mirage.py:3692
+#: microbox.py:408 microbox.py:3695
 #, fuzzy
 msgid "Resize Image"
 msgstr "Удалить изображение"
 
-#: mirage.py:406
+#: microbox.py:409
 #, fuzzy
 msgid "_Saturation..."
 msgstr "Параметры:"
 
-#: mirage.py:406
+#: microbox.py:409
 msgid "Modify saturation"
 msgstr ""
 
-#: mirage.py:407
+#: microbox.py:410
 msgid "_Quit"
 msgstr "_Выход"
 
-#: mirage.py:407
+#: microbox.py:410
 msgid "Quit"
 msgstr "Выход"
 
-#: mirage.py:408
+#: microbox.py:411
 msgid "_Previous Image"
 msgstr "_Предыдущее изображение"
 
-#: mirage.py:408 mirage.py:448 mirage.py:450 mirage.py:452
+#: microbox.py:411 microbox.py:451 microbox.py:453 microbox.py:455
 msgid "Previous Image"
 msgstr "Предыдущее изображение"
 
-#: mirage.py:409
+#: microbox.py:412
 msgid "_Next Image"
 msgstr "_Следующее изображение"
 
-#: mirage.py:409 mirage.py:440 mirage.py:449 mirage.py:451
+#: microbox.py:412 microbox.py:443 microbox.py:452 microbox.py:454
 msgid "Next Image"
 msgstr "Следующее изображение"
 
-#: mirage.py:410
+#: microbox.py:413
 msgid "_Previous"
 msgstr "_Предыдущее"
 
-#: mirage.py:410
+#: microbox.py:413
 msgid "Previous"
 msgstr "Предыдущее"
 
-#: mirage.py:411
+#: microbox.py:414
 msgid "_Next"
 msgstr "_Следующее"
 
-#: mirage.py:411
+#: microbox.py:414
 msgid "Next"
 msgstr "Следующее"
 
-#: mirage.py:412
+#: microbox.py:415
 msgid "_Random Image"
 msgstr "_Случайное изображение"
 
-#: mirage.py:412
+#: microbox.py:415
 msgid "Random Image"
 msgstr "Случайное изображение"
 
-#: mirage.py:413
+#: microbox.py:416
 msgid "_First Image"
 msgstr "П_ервое изображение"
 
-#: mirage.py:413
+#: microbox.py:416
 msgid "First Image"
 msgstr "Первое изображение"
 
-#: mirage.py:414
+#: microbox.py:417
 msgid "_Last Image"
 msgstr "П_оследнее изображение"
 
-#: mirage.py:414
+#: microbox.py:417
 msgid "Last Image"
 msgstr "Последнее изображение"
 
-#: mirage.py:415
+#: microbox.py:418
 msgid "Zoom _In"
 msgstr "У_величить"
 
-#: mirage.py:415 mirage.py:438 mirage.py:439 mirage.py:444 mirage.py:454
+#: microbox.py:418 microbox.py:441 microbox.py:442 microbox.py:447
+#: microbox.py:457
 msgid "Zoom In"
 msgstr "Увеличить"
 
-#: mirage.py:416
+#: microbox.py:419
 msgid "Zoom _Out"
 msgstr "У_меньшить"
 
-#: mirage.py:416 mirage.py:437 mirage.py:443 mirage.py:455
+#: microbox.py:419 microbox.py:440 microbox.py:446 microbox.py:458
 msgid "Zoom Out"
 msgstr "Уменьшить"
 
-#: mirage.py:417
+#: microbox.py:420
 msgid "Zoom To _Fit"
 msgstr "К размеру _окна"
 
-#: mirage.py:417 mirage.py:441 mirage.py:445
+#: microbox.py:420 microbox.py:444 microbox.py:448
 msgid "Fit"
 msgstr "К размеру окна"
 
-#: mirage.py:418
+#: microbox.py:421
 msgid "_1:1"
 msgstr "_1:1"
 
-#: mirage.py:418 mirage.py:442 mirage.py:446 mirage.py:453
+#: microbox.py:421 microbox.py:445 microbox.py:449 microbox.py:456
 msgid "1:1"
 msgstr "1:1"
 
-#: mirage.py:419
+#: microbox.py:422
 msgid "Rotate _Left"
 msgstr "Повернуть в_лево"
 
-#: mirage.py:419
+#: microbox.py:422
 msgid "Rotate Left"
 msgstr "Повернуть влево"
 
-#: mirage.py:420
+#: microbox.py:423
 msgid "Rotate _Right"
 msgstr "Повернуть в_право"
 
-#: mirage.py:420
+#: microbox.py:423
 msgid "Rotate Right"
 msgstr "Повернуть вправо"
 
-#: mirage.py:421
+#: microbox.py:424
 msgid "Flip _Vertically"
 msgstr "Отразить в_ертикально"
 
-#: mirage.py:421
+#: microbox.py:424
 msgid "Flip Vertically"
 msgstr "Отразить вертикально"
 
-#: mirage.py:422
+#: microbox.py:425
 msgid "Flip _Horizontally"
 msgstr "Отразить _горизонтально"
 
-#: mirage.py:422
+#: microbox.py:425
 msgid "Flip Horizontally"
 msgstr "Отразить горизонтально"
 
-#: mirage.py:423
+#: microbox.py:426
 msgid "_About"
 msgstr "_О программе"
 
-#: mirage.py:423
+#: microbox.py:426
 msgid "About"
 msgstr "О программе"
 
-#: mirage.py:424
+#: microbox.py:427
 msgid "_Contents"
 msgstr ""
 
-#: mirage.py:424
+#: microbox.py:427
 msgid "Contents"
 msgstr ""
 
-#: mirage.py:425
+#: microbox.py:428
 #, fuzzy
 msgid "_Preferences..."
 msgstr "Па_раметры"
 
-#: mirage.py:425
+#: microbox.py:428
 msgid "Preferences"
 msgstr "Параметры"
 
-#: mirage.py:426
+#: microbox.py:429
 msgid "_Full Screen"
 msgstr "Полно_экранный режим"
 
-#: mirage.py:426
+#: microbox.py:429
 msgid "Full Screen"
 msgstr "Полноэкранный режим"
 
-#: mirage.py:427
+#: microbox.py:430
 msgid "E_xit Full Screen"
 msgstr "Выйти и_з полноэкранного режима"
 
-#: mirage.py:427 mirage.py:436
+#: microbox.py:430 microbox.py:439
 msgid "Exit Full Screen"
 msgstr "Выйти из полноэкранного режима"
 
-#: mirage.py:428
+#: microbox.py:431
 msgid "_Start Slideshow"
 msgstr "_Начать просмотр слайдов"
 
-#: mirage.py:428
+#: microbox.py:431
 msgid "Start Slideshow"
 msgstr "Начать просмотр слайдов"
 
-#: mirage.py:429
+#: microbox.py:432
 msgid "_Stop Slideshow"
 msgstr "_Остановить просмотр слайдов"
 
-#: mirage.py:429
+#: microbox.py:432
 msgid "Stop Slideshow"
 msgstr "Остановить просмотр слайдов"
 
-#: mirage.py:430
+#: microbox.py:433
 #, fuzzy
 msgid "_Delete..."
 msgstr "Удалить изображение"
 
-#: mirage.py:430 mirage.py:2933
+#: microbox.py:433 microbox.py:2942
 msgid "Delete Image"
 msgstr "Удалить изображение"
 
-#: mirage.py:431
+#: microbox.py:434
 #, fuzzy
 msgid "Re_name..."
 msgstr "_Открыть изображение..."
 
-#: mirage.py:431 mirage.py:2866
+#: microbox.py:434 microbox.py:2875
 #, fuzzy
 msgid "Rename Image"
 msgstr "Удалить изображение"
 
-#: mirage.py:432
+#: microbox.py:435
 msgid "_Take Screenshot..."
 msgstr ""
 
-#: mirage.py:432
+#: microbox.py:435
 msgid "Take Screenshot"
 msgstr ""
 
-#: mirage.py:433
+#: microbox.py:436
 #, fuzzy
 msgid "_Properties..."
 msgstr "Па_раметры"
 
-#: mirage.py:433 mirage.py:2444
+#: microbox.py:436 microbox.py:2445
 #, fuzzy
 msgid "Properties"
 msgstr "Параметры:"
 
-#: mirage.py:434
+#: microbox.py:437
 msgid "_Configure..."
 msgstr ""
 
-#: mirage.py:434
+#: microbox.py:437
 msgid "Custom Actions"
 msgstr ""
 
-#: mirage.py:456
+#: microbox.py:459
 msgid "_Scan"
 msgstr ""
 
-#: mirage.py:459
+#: microbox.py:462
 msgid "_Status Bar"
 msgstr "Строка _состояния"
 
-#: mirage.py:459
+#: microbox.py:462
 msgid "Status Bar"
 msgstr "Строка состояния"
 
-#: mirage.py:460
+#: microbox.py:463
 msgid "_Toolbar"
 msgstr "Панель _инструментов"
 
-#: mirage.py:460
+#: microbox.py:463
 msgid "Toolbar"
 msgstr "Панель инструментов"
 
-#: mirage.py:461
+#: microbox.py:464
 #, fuzzy
 msgid "Thumbnails _Pane"
 msgstr "Удалить изображение"
 
-#: mirage.py:461
+#: microbox.py:464
 msgid "Thumbnails Pane"
 msgstr ""
 
-#: mirage.py:1091
+#: microbox.py:1093
 #, python-format
 msgid "Couldn't find the image %s. Please check your installation."
 msgstr ""
 
-#: mirage.py:1312
+#: microbox.py:1314
 #, python-format
 msgid "Action: %s"
 msgstr ""
 
-#: mirage.py:1315
+#: microbox.py:1317
 #, python-format
 msgid "Action return code: %s"
 msgstr ""
 
-#: mirage.py:1317
+#: microbox.py:1319
 #, fuzzy, python-format
 msgid ""
 "Unable to launch \"%s\". Please specify a valid command from Edit > Custom "
 "Actions."
 msgstr "Укажите правильную команду для запуска приложения (Правка->Параметры)."
 
-#: mirage.py:1319 mirage.py:2187 mirage.py:2222
+#: microbox.py:1321 microbox.py:2188 microbox.py:2223
 msgid "Invalid Custom Action"
 msgstr ""
 
-#: mirage.py:1453
+#: microbox.py:1455
 msgid "Version: Mirage"
 msgstr "Версия: Mirage"
 
-#: mirage.py:1454
+#: microbox.py:1456
 msgid "Website: http://mirageiv.berlios.de"
 msgstr "Сайт: http://mirageiv.berlios.de"
 
-#: mirage.py:1459
+#: microbox.py:1461
 msgid "Usage: mirage [OPTION]... FILES|FOLDERS..."
 msgstr "Использование: mirage [OPTION]... FILES|FOLDERS..."
 
-#: mirage.py:1461
+#: microbox.py:1463
 #, fuzzy
 msgid "Options"
 msgstr "Параметры:"
 
-#: mirage.py:1462
+#: microbox.py:1464
 msgid "Show this help and exit"
 msgstr ""
 
-#: mirage.py:1463
+#: microbox.py:1465
 #, fuzzy
 msgid "Show version information and exit"
 msgstr "  -v, --version                Показать версию"
 
-#: mirage.py:1464
+#: microbox.py:1466
 #, fuzzy
 msgid "Show more detailed information"
 msgstr "  -V, --verbose                Показать более подробную информацию"
 
-#: mirage.py:1465
+#: microbox.py:1467
 #, fuzzy
 msgid "Recursively include all images found in"
 msgstr ""
 "  -R, --recursive              Рекурсивно включать все изобажения, найденные "
 "в"
 
-#: mirage.py:1466
+#: microbox.py:1468
 #, fuzzy
 msgid "subdirectories of FOLDERS"
 msgstr "                               дочерних каталогах FOLDERS"
 
-#: mirage.py:1467
+#: microbox.py:1469
 #, fuzzy
 msgid "Start in slideshow mode"
 msgstr "Начать просмотр слайдов"
 
-#: mirage.py:1468
+#: microbox.py:1470
 #, fuzzy
 msgid "Start in fullscreen mode"
 msgstr "Запускать показ в полноэкранном режиме"
 
-#: mirage.py:1469
+#: microbox.py:1471
 msgid "Execute 'cmd' when an image is loaded"
 msgstr ""
 
-#: mirage.py:1470
+#: microbox.py:1472
 msgid "uses same syntax as custom actions,\n"
 msgstr ""
 
-#: mirage.py:1471
+#: microbox.py:1473
 msgid "i.e. mirage -o 'echo file is %F'"
 msgstr ""
 
-#: mirage.py:1708
+#: microbox.py:1709
 msgid "Save As"
 msgstr ""
 
-#: mirage.py:1749
+#: microbox.py:1750
 #, python-format
 msgid ""
 "The %s format is not supported for saving. Do you wish to save the file in a "
 "different format?"
 msgstr ""
 
-#: mirage.py:1750 mirage.py:1761
+#: microbox.py:1751 microbox.py:1762
 msgid "Save"
 msgstr ""
 
-#: mirage.py:1760
+#: microbox.py:1761
 #, fuzzy, python-format
 msgid "Unable to save %s"
 msgstr "Невозможно удалить "
 
-#: mirage.py:1777
+#: microbox.py:1778
 msgid "The current image has been modified. Save changes?"
 msgstr ""
 
-#: mirage.py:1781
+#: microbox.py:1782
 msgid "Save?"
 msgstr ""
 
-#: mirage.py:1819
+#: microbox.py:1820
 #, fuzzy
 msgid "Open Remote"
 msgstr "Открыть изображение"
 
-#: mirage.py:1824
+#: microbox.py:1825
 msgid "Image Location (URL):"
 msgstr ""
 
-#: mirage.py:1855
+#: microbox.py:1856
 msgid "Open"
 msgstr "Открыть"
 
-#: mirage.py:1858
+#: microbox.py:1859
 msgid "Images"
 msgstr "Изображения"
 
-#: mirage.py:1862
+#: microbox.py:1863
 msgid "All files"
 msgstr "Все файлы"
 
-#: mirage.py:1872
+#: microbox.py:1873
 msgid "Include images in subdirectories"
 msgstr "Включать файлы в дочерних каталогах"
 
-#: mirage.py:2030
+#: microbox.py:2031
 msgid "Cannot load image."
 msgstr "Невозможно загрузить изображение."
 
-#: mirage.py:2034
+#: microbox.py:2035
 #, python-format
 msgid "Custom actions: %(current)i of  %(total)i"
 msgstr ""
 
-#: mirage.py:2036
+#: microbox.py:2037
 msgid "Scanning..."
 msgstr ""
 
-#: mirage.py:2040
+#: microbox.py:2041
 msgid "Configure Custom Actions"
 msgstr ""
 
-#: mirage.py:2058
+#: microbox.py:2059
 msgid "Batch"
 msgstr ""
 
-#: mirage.py:2059
+#: microbox.py:2060
 msgid "Action"
 msgstr ""
 
-#: mirage.py:2060
+#: microbox.py:2061
 msgid "Shortcut"
 msgstr ""
 
-#: mirage.py:2072
+#: microbox.py:2073
 msgid "Add action"
 msgstr ""
 
-#: mirage.py:2076
+#: microbox.py:2077
 msgid "Edit selected action."
 msgstr ""
 
-#: mirage.py:2080
+#: microbox.py:2081
 msgid "Remove selected action."
 msgstr ""
 
-#: mirage.py:2084
+#: microbox.py:2085
 msgid "Move selected action up."
 msgstr ""
 
-#: mirage.py:2088
+#: microbox.py:2089
 msgid "Move selected action down."
 msgstr ""
 
-#: mirage.py:2091
+#: microbox.py:2092
 msgid "Parameters"
 msgstr ""
 
-#: mirage.py:2091
+#: microbox.py:2092
 msgid "File path, name, and extension"
 msgstr ""
 
-#: mirage.py:2091
+#: microbox.py:2092
 msgid "File path"
 msgstr ""
 
-#: mirage.py:2091
+#: microbox.py:2092
 msgid "File name without file extension"
 msgstr ""
 
-#: mirage.py:2091
+#: microbox.py:2092
 msgid "File extension (i.e. \".png\")"
 msgstr ""
 
-#: mirage.py:2091
+#: microbox.py:2092
 msgid "List of files, space-separated"
 msgstr ""
 
-#: mirage.py:2094
+#: microbox.py:2095
 #, fuzzy
 msgid "Operations"
 msgstr "Параметры:"
 
-#: mirage.py:2094
+#: microbox.py:2095
 #, fuzzy
 msgid "Go to next image"
 msgstr "Следующее изображение"
 
-#: mirage.py:2094
+#: microbox.py:2095
 #, fuzzy
 msgid "Go to previous image"
 msgstr "Предыдущее изображение"
 
-#: mirage.py:2113
+#: microbox.py:2114
 msgid ""
 "Here you can define custom actions with shortcuts. Actions use the built-in "
 "parameters and operations listed below and can have multiple statements "
 "separated by a semicolon. Batch actions apply to all images in the list."
 msgstr ""
 
-#: mirage.py:2149
+#: microbox.py:2150
 msgid "Add Custom Action"
 msgstr ""
 
-#: mirage.py:2151
+#: microbox.py:2152
 msgid "Edit Custom Action"
 msgstr ""
 
-#: mirage.py:2154
+#: microbox.py:2155
 msgid "Action Name:"
 msgstr ""
 
-#: mirage.py:2156
+#: microbox.py:2157
 msgid "Command:"
 msgstr ""
 
-#: mirage.py:2158
+#: microbox.py:2159
 msgid "Shortcut:"
 msgstr ""
 
-#: mirage.py:2172
+#: microbox.py:2173
 msgid "Perform action on all images (Batch)"
 msgstr ""
 
-#: mirage.py:2186
+#: microbox.py:2187
 msgid "[PREV] and [NEXT] are only valid alone or at the end of the command"
 msgstr ""
 
-#: mirage.py:2221
+#: microbox.py:2222
 msgid "Incomplete custom action specified."
 msgstr ""
 
-#: mirage.py:2299
+#: microbox.py:2300
 msgid "Action Shortcut"
 msgstr ""
 
-#: mirage.py:2300
+#: microbox.py:2301
 msgid "Press the desired shortcut for the action."
 msgstr ""
 
-#: mirage.py:2317 mirage.py:2324
+#: microbox.py:2318 microbox.py:2325
 #, python-format
 msgid "The shortcut '%(shortcut)s' is already used for '%(key)s'."
 msgstr ""
 
-#: mirage.py:2318 mirage.py:2325
+#: microbox.py:2319 microbox.py:2326
 msgid "Invalid Shortcut"
 msgstr ""
 
-#: mirage.py:2367
+#: microbox.py:2368
 msgid "Screenshot"
 msgstr ""
 
-#: mirage.py:2368
+#: microbox.py:2369
 msgid "_Snap"
 msgstr ""
 
-#: mirage.py:2373
+#: microbox.py:2374
 #, fuzzy
 msgid "Location"
 msgstr "Загрузка:"
 
-#: mirage.py:2376
+#: microbox.py:2377
 msgid "Entire screen"
 msgstr ""
 
-#: mirage.py:2377
+#: microbox.py:2378
 msgid "Window under pointer"
 msgstr ""
 
-#: mirage.py:2382
+#: microbox.py:2383
 msgid "Delay"
 msgstr ""
 
-#: mirage.py:2390
+#: microbox.py:2391
 #, fuzzy
 msgid " seconds"
 msgstr "секунд"
 
-#: mirage.py:2458
+#: microbox.py:2459
 #, fuzzy
 msgid "File name:"
 msgstr "Удалить изображение"
 
-#: mirage.py:2460
+#: microbox.py:2461
 #, fuzzy
 msgid "File modified:"
 msgstr "Удалить изображение"
 
-#: mirage.py:2462
+#: microbox.py:2463
 msgid "Dimensions:"
 msgstr ""
 
-#: mirage.py:2464
+#: microbox.py:2465
 #, fuzzy
 msgid "File size:"
 msgstr "Удалить изображение"
 
-#: mirage.py:2466
+#: microbox.py:2467
 #, fuzzy
 msgid "File type:"
 msgstr "Удалить изображение"
 
-#: mirage.py:2468
+#: microbox.py:2469
 msgid "Transparency:"
 msgstr ""
 
-#: mirage.py:2470
+#: microbox.py:2471
 #, fuzzy
 msgid "Animation:"
 msgstr "Перемещение"
 
-#: mirage.py:2472
+#: microbox.py:2473
 msgid "Bits per sample:"
 msgstr ""
 
-#: mirage.py:2474
+#: microbox.py:2475
 msgid "Channels:"
 msgstr ""
 
-#: mirage.py:2493 mirage.py:2499 mirage.py:2656
+#: microbox.py:2494 microbox.py:2500 microbox.py:2657
 msgid "Yes"
 msgstr "Да"
 
-#: mirage.py:2495 mirage.py:2497 mirage.py:2655
+#: microbox.py:2496 microbox.py:2498 microbox.py:2656
 msgid "No"
 msgstr "Нет"
 
-#: mirage.py:2534
+#: microbox.py:2535
 msgid "Mirage Preferences"
 msgstr "Параметры Mirage"
 
-#: mirage.py:2540 mirage.py:2790
+#: microbox.py:2541 microbox.py:2799
 msgid "Interface"
 msgstr "Интерфейс"
 
-#: mirage.py:2543
+#: microbox.py:2544
 #, fuzzy
 msgid "Background color:"
 msgstr "Цвет фона"
 
-#: mirage.py:2547
+#: microbox.py:2548
 msgid "Sets the background color for the application."
 msgstr ""
 
-#: mirage.py:2553
+#: microbox.py:2554
 #, fuzzy
 msgid "Simple background color:"
 msgstr "Цвет фона"
 
-#: mirage.py:2562
+#: microbox.py:2563
 #, fuzzy
 msgid "Open Mirage in fullscreen mode"
 msgstr "Запускать показ в полноэкранном режиме"
 
-#: mirage.py:2565
+#: microbox.py:2566
 #, fuzzy
 msgid "Thumbnail size:"
 msgstr "Удалить изображение"
 
-#: mirage.py:2592
+#: microbox.py:2593
 msgid "Open Behavior"
 msgstr "Поведение команды \"Открыть\""
 
-#: mirage.py:2595
+#: microbox.py:2596
 #, fuzzy
 msgid "Open new image in:"
 msgstr "Открывать новое изображение в"
 
-#: mirage.py:2597
+#: microbox.py:2598
 msgid "Smart Mode"
 msgstr "смешанном режиме"
 
-#: mirage.py:2598
+#: microbox.py:2599
 msgid "Zoom To Fit Mode"
 msgstr "режиме \"к размеру окна\""
 
-#: mirage.py:2599
+#: microbox.py:2600
 msgid "1:1 Mode"
 msgstr "режиме 1:1"
 
-#: mirage.py:2600
+#: microbox.py:2601
 msgid "Last Active Mode"
 msgstr "последнем использованном режиме"
 
-#: mirage.py:2603
+#: microbox.py:2604
 msgid "Load all images in current directory"
 msgstr "Загружать все изображения текущего каталога"
 
-#: mirage.py:2605
+#: microbox.py:2606
 msgid ""
 "If enabled, opening an image in Mirage will automatically load all images "
 "found in that image's directory."
@@ -792,43 +793,43 @@ msgstr ""
 "При включении этой функции все изображения из текущего каталога будут "
 "загружены автоматически."
 
-#: mirage.py:2606
+#: microbox.py:2607
 msgid "Allow loading hidden files"
 msgstr ""
 
-#: mirage.py:2608
+#: microbox.py:2609
 msgid ""
 "If checked, Mirage will open hidden files. Otherwise, hidden files will be "
 "ignored."
 msgstr ""
 
-#: mirage.py:2610
+#: microbox.py:2611
 msgid "Use last chosen directory"
 msgstr "Использовать последний выбранный каталог"
 
-#: mirage.py:2611
+#: microbox.py:2612
 msgid "The default 'Open' directory will be the last directory used."
 msgstr "Последний выбранный каталог будет каталогом по умолчанию."
 
-#: mirage.py:2612
+#: microbox.py:2613
 #, fuzzy
 msgid "Use this fixed directory:"
 msgstr "Использовать указанный каталог:"
 
-#: mirage.py:2614
+#: microbox.py:2615
 msgid "The default 'Open' directory will be this specified directory."
 msgstr "Укаанный каталог всегда будет каталогом по умолчанию."
 
-#: mirage.py:2647 mirage.py:2789
+#: microbox.py:2648 microbox.py:2798
 msgid "Navigation"
 msgstr "Перемещение"
 
-#: mirage.py:2649
+#: microbox.py:2650
 #, fuzzy
 msgid "Preload images for faster navigation"
 msgstr "Использовать колесо мыши для смены изображения"
 
-#: mirage.py:2651
+#: microbox.py:2652
 msgid ""
 "If enabled, the next and previous images in the list will be preloaded "
 "during idle time. Note that the speed increase comes at the expense of "
@@ -836,281 +837,295 @@ msgid ""
 "limited ram."
 msgstr ""
 
-#: mirage.py:2653
+#: microbox.py:2654
 #, fuzzy
 msgid "Wrap around imagelist:"
 msgstr "Автоматически переходить к началу списка:"
 
-#: mirage.py:2657
+#: microbox.py:2658
 msgid "Prompt User"
 msgstr "По выбору"
 
-#: mirage.py:2676 mirage.py:4657
+#: microbox.py:2677 microbox.py:4660
 msgid "Slideshow Mode"
 msgstr "Просмотр слайдов"
 
-#: mirage.py:2679
+#: microbox.py:2680
 #, fuzzy
 msgid "Delay between images in seconds:"
 msgstr "Показывать изображение:"
 
-#: mirage.py:2684
+#: microbox.py:2685
 msgid "Randomize order of images"
 msgstr "Перемешать изображения"
 
-#: mirage.py:2686
+#: microbox.py:2687
 msgid ""
 "If enabled, a random image will be chosen during slideshow mode (without "
 "loading any image twice)."
 msgstr ""
 
-#: mirage.py:2687
+#: microbox.py:2688
 msgid "Disable screensaver in slideshow mode"
 msgstr "Отключить хранитель экрана во время показа слайдов"
 
-#: mirage.py:2689
+#: microbox.py:2690
 #, fuzzy
 msgid ""
 "If enabled, xscreensaver will be temporarily disabled during slideshow mode."
 msgstr "Отключить хранитель экрана во время показа слайдов"
 
-#: mirage.py:2690
+#: microbox.py:2691
 msgid "Always start in fullscreen mode"
 msgstr "Запускать показ в полноэкранном режиме"
 
-#: mirage.py:2691
+#: microbox.py:2692
 msgid ""
 "If enabled, starting a slideshow will put the application in fullscreen mode."
 msgstr ""
 
-#: mirage.py:2709
+#: microbox.py:2710
 msgid "Image Editing"
 msgstr ""
 
-#: mirage.py:2711
+#: microbox.py:2712
 msgid "Confirm image delete"
 msgstr ""
 
-#: mirage.py:2715
+#: microbox.py:2716
 msgid "Scaling quality:"
 msgstr ""
 
-#: mirage.py:2717
+#: microbox.py:2718
 msgid "Nearest (Fastest)"
 msgstr ""
 
-#: mirage.py:2718
+#: microbox.py:2719
 #, fuzzy
 msgid "Tiles"
 msgstr "_Файл"
 
-#: mirage.py:2719
+#: microbox.py:2720
 msgid "Bilinear"
 msgstr ""
 
-#: mirage.py:2720
+#: microbox.py:2721
 msgid "Hyper (Best)"
 msgstr ""
 
-#: mirage.py:2726
+#: microbox.py:2727
 msgid "Modified images:"
 msgstr ""
 
-#: mirage.py:2728
+#: microbox.py:2729
 msgid "Ignore Changes"
 msgstr ""
 
-#: mirage.py:2729
+#: microbox.py:2730
 msgid "Auto-Save"
 msgstr ""
 
-#: mirage.py:2730
+#: microbox.py:2731
 msgid "Prompt For Action"
 msgstr ""
 
-#: mirage.py:2736
+#: microbox.py:2737
 #, fuzzy
 msgid "Quality to save in:"
 msgstr "Невозможно удалить "
 
-#: mirage.py:2760
+#: microbox.py:2761
 msgid "Server IP:"
 msgstr ""
 
-#: mirage.py:2766
+#: microbox.py:2767
 #, fuzzy
 msgid "Image Type:"
 msgstr "Изображения"
 
-#: mirage.py:2768
+#: microbox.py:2769
 msgid "TIFF"
 msgstr ""
 
-#: mirage.py:2769
+#: microbox.py:2770
 msgid "JPEG"
 msgstr ""
 
-#: mirage.py:2770
-msgid "PDF"
+#: microbox.py:2775
+#, fuzzy
+msgid "Image Color:"
+msgstr "Изображения"
+
+#: microbox.py:2777
+msgid "Color"
 msgstr ""
 
-#: mirage.py:2788
+#: microbox.py:2778
+msgid "Grey"
+msgstr ""
+
+#: microbox.py:2779
+msgid "Black"
+msgstr ""
+
+#: microbox.py:2797
 msgid "Behavior"
 msgstr "Поведение"
 
-#: mirage.py:2791
+#: microbox.py:2800
 msgid "Slideshow"
 msgstr "Слайды"
 
-#: mirage.py:2792
+#: microbox.py:2801
 #, fuzzy
 msgid "Image"
 msgstr "Изображения"
 
-#: mirage.py:2793
+#: microbox.py:2802
 msgid "Scanner"
 msgstr ""
 
-#: mirage.py:2872
+#: microbox.py:2881
 #, fuzzy
 msgid "_Rename"
 msgstr "_Открыть изображение..."
 
-#: mirage.py:2883
+#: microbox.py:2892
 msgid "Enter the new name:"
 msgstr ""
 
-#: mirage.py:2915
+#: microbox.py:2924
 #, fuzzy, python-format
 msgid "Unable to rename %s"
 msgstr "Невозможно удалить "
 
-#: mirage.py:2916
+#: microbox.py:2925
 #, fuzzy
 msgid "Unable to rename"
 msgstr "Невозможно удалить "
 
-#: mirage.py:2935
+#: microbox.py:2944
 #, fuzzy, python-format
 msgid "Are you sure you wish to permanently delete %s?"
 msgstr "Вы уверены, что хотите удалить "
 
-#: mirage.py:2996
+#: microbox.py:3005
 #, fuzzy, python-format
 msgid "Unable to delete %s"
 msgstr "Невозможно удалить "
 
-#: mirage.py:2997
+#: microbox.py:3006
 #, fuzzy
 msgid "Unable to delete"
 msgstr "Невозможно удалить "
 
-#: mirage.py:3005
+#: microbox.py:3014
 msgid "Choose directory"
 msgstr "Выбор каталога"
 
-#: mirage.py:3053
+#: microbox.py:3062
 #, fuzzy
-msgid "A fast GTK+ Image Viewer."
+msgid "A fast GTK+ Scanner Viewer."
 msgstr "Быстрый просмотрщик изображений на GTK+."
 
-#: mirage.py:3095
+#: microbox.py:3098
 #, fuzzy
 msgid "Unable to launch a suitable browser."
 msgstr "Невозможно запустить"
 
-#: mirage.py:3215
+#: microbox.py:3218
 #, fuzzy
 msgid "Unable to call the Scanner Server."
 msgstr "Невозможно запустить"
 
-#: mirage.py:3448
+#: microbox.py:3451
 #, fuzzy
 msgid "C_rop"
 msgstr "_Открыть изображение..."
 
-#: mirage.py:3490 mirage.py:3703
+#: microbox.py:3493 microbox.py:3706
 msgid "Width:"
 msgstr ""
 
-#: mirage.py:3497 mirage.py:3714
+#: microbox.py:3500 microbox.py:3717
 msgid "Height:"
 msgstr ""
 
-#: mirage.py:3643
+#: microbox.py:3646
 #, fuzzy
 msgid "Saturation"
 msgstr "Параметры:"
 
-#: mirage.py:3644
+#: microbox.py:3647
 #, fuzzy
 msgid "_Saturate"
 msgstr "Параметры:"
 
-#: mirage.py:3655
+#: microbox.py:3658
 #, fuzzy
 msgid "Saturation level:"
 msgstr "Параметры:"
 
-#: mirage.py:3693
+#: microbox.py:3696
 #, fuzzy
 msgid "_Resize"
 msgstr "Удалить изображение"
 
-#: mirage.py:3707 mirage.py:3719
+#: microbox.py:3710 microbox.py:3722
 msgid "pixels"
 msgstr ""
 
-#: mirage.py:3721
+#: microbox.py:3724
 msgid "Preserve aspect ratio"
 msgstr ""
 
-#: mirage.py:3862
+#: microbox.py:3865
 msgid ""
 "You are viewing the first image in the list. Wrap around to the last image?"
 msgstr "Вы просматриваете первое изображение в списке. Перейти к последнему?"
 
-#: mirage.py:3864
+#: microbox.py:3867
 msgid ""
 "You are viewing the last image in the list. Wrap around to the first image?"
 msgstr "Вы просматриваете последнее изображение в списке. Перейти к первому?"
 
-#: mirage.py:3866
+#: microbox.py:3869
 msgid ""
 "All images have been viewed. Would you like to cycle through the images "
 "again?"
 msgstr "Все изображения просмотрены. Вы хотите просмотреть список сначала?"
 
-#: mirage.py:3867
+#: microbox.py:3870
 msgid "Wrap?"
 msgstr ""
 
-#: mirage.py:3966 mirage.py:4079 mirage.py:4096 mirage.py:4159 mirage.py:4453
+#: microbox.py:3969 microbox.py:4082 microbox.py:4099 microbox.py:4162
+#: microbox.py:4456
 #, fuzzy, python-format
 msgid "Loading: %s"
 msgstr "Загрузка:"
 
-#: mirage.py:4240 mirage.py:4292
+#: microbox.py:4243 microbox.py:4295
 #, fuzzy, python-format
 msgid "Preloading: %s"
 msgstr "Загрузка:"
 
-#: mirage.py:4363 mirage.py:4543
+#: microbox.py:4366 microbox.py:4546
 #, python-format
 msgid "Skipping: %s"
 msgstr ""
 
-#: mirage.py:4420
+#: microbox.py:4423
 #, python-format
 msgid "Found: %(item)s [%(number)i]"
 msgstr ""
 
-#: mirage.py:4539
+#: microbox.py:4542
 #, python-format
 msgid "Found: %(fullpath)s [%(number)i]"
 msgstr ""
 
-#: mirage.py:4655
+#: microbox.py:4658
 #, python-format
 msgid "[%(current)i of %(total)i]"
 msgstr ""

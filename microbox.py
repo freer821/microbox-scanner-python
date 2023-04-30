@@ -1,7 +1,7 @@
 # $HeadURL: http://svn.berlios.de/svnroot/repos/mirageiv/branches/mirage-0.9.x/mirage.py $
 # $Id: microbox.py 337 2011-02-13 22:40:05Z fredricj $
 
-__version__ = "0.9.5.2"
+__version__ = "1.0.0"
 
 __license__ = """
 Mirage, a fast GTK+ Image Viewer
@@ -186,6 +186,7 @@ class Base:
 		# Settings, scanner:
 		self.scanner_ip = ""
 		self.scanner_image_type = 0
+		self.scanner_image_color = 0
 
 		# Read any passed options/arguments:
 		try:
@@ -289,6 +290,8 @@ class Base:
 			self.scanner_ip = conf.get('scanner', 'ip')
 		if conf.has_option('scanner', 'image_type'):
 			self.scanner_image_type = conf.getint('scanner', 'image_type')
+		if conf.has_option('scanner', 'image_color'):
+			self.scanner_image_color = conf.getint('scanner', 'image_color')
 
 		if conf.has_option('actions', 'num_actions'):
 			num_actions = conf.getint('actions', 'num_actions')
@@ -544,7 +547,6 @@ class Base:
 			      <menuitem action="Stop Slideshow"/>
 			    </menu>
 			    <menu action="HelpMenu">
-			      <menuitem action="Contents"/>
 			      <menuitem action="About"/>
 			    </menu>
 			    <menu action="MiscKeysMenuHidden">
@@ -2766,16 +2768,24 @@ class Base:
 		combobox_image_type = gtk.combo_box_new_text()
 		combobox_image_type.append_text(_("TIFF"))
 		combobox_image_type.append_text(_("JPEG"))
-		combobox_image_type.append_text(_("PDF"))
 		combobox_image_type.set_active(self.scanner_image_type)
 		hbox_image_types_wrap.pack_start(combobox_image_type, False, False, 5)
+
+		hbox_image_color_wrap = gtk.HBox()
+		hbox_image_color_wrap.pack_start(gtk.Label(_("Image Color:")), False, False, 0)
+		combobox_image_color = gtk.combo_box_new_text()
+		combobox_image_color.append_text(_("Color"))
+		combobox_image_color.append_text(_("Grey"))
+		combobox_image_color.append_text(_("Black"))
+		combobox_image_color.set_active(self.scanner_image_color)
+		hbox_image_color_wrap.pack_start(combobox_image_color, False, False, 5)
 
 		table_scanner.attach(gtk.Label(), 1, 2, 1, 2, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
 		table_scanner.attach(hbox_ip_wrap, 1, 2, 2, 3, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 15, 0)
 		table_scanner.attach(gtk.Label(), 1, 2, 3, 4, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
 		table_scanner.attach(hbox_image_types_wrap, 1, 2, 4, 5, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 30, 0)
 		table_scanner.attach(gtk.Label(), 1, 2, 5, 6, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
-		table_scanner.attach(gtk.Label(), 1, 2, 8, 9, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
+		table_scanner.attach(hbox_image_color_wrap, 1, 2, 8, 9, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
 		table_scanner.attach(gtk.Label(), 1, 2, 9, 10, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 30, 0)
 		table_scanner.attach(gtk.Label(), 1, 2, 10, 11, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 30, 0)
 		table_scanner.attach(gtk.Label(), 1, 2, 11, 12, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
@@ -3047,15 +3057,9 @@ class Base:
 			self.about_dialog.set_modal(True)
 		except:
 			pass
-		self.about_dialog.set_name('Mirage')
+		self.about_dialog.set_name('MicroBox')
 		self.about_dialog.set_version(__version__)
-		self.about_dialog.set_comments(_('A fast GTK+ Image Viewer.'))
-		self.about_dialog.set_license(__license__)
-		self.about_dialog.set_authors(['Scott Horowitz <stonecrest@gmail.com>', 'Fredric Johansson <fredric.miscmail@gmail.com>'])
-		self.about_dialog.set_artists(['William Rea <sillywilly@gmail.com>'])
-		self.about_dialog.set_translator_credits('cs - Petr Pisar <petr.pisar@atlas.cz>\nde - Bjoern Martensen <bjoern.martensen@gmail.com>\nes - Isidro Arribas <cdhotfire@gmail.com>\nfr - Mike Massonnet <mmassonnet@gmail.com>\nhu - Sandor Lisovszki <lisovszki@dunakanyar.net>\nnl - Pascal De Vuyst <pascal.devuyst@gmail.com>\npl - Tomasz Dominikowski <dominikowski@gmail.com>\npt_BR - Danilo Martins <mawkee@gmail.com>\nru - mavka <mavka@justos.org>\nit - Daniele Maggio <dado84@freemail.it>\nzh_CN - Jayden Suen <no.sun@163.com>')
-		gtk.about_dialog_set_url_hook(self.show_website, "http://mirageiv.berlios.de")
-		self.about_dialog.set_website_label("http://mirageiv.berlios.de")
+		self.about_dialog.set_comments(_('A fast GTK+ Scanner Viewer.'))
 		icon_path = self.find_path('mirage.png')
 		try:
 			icon_pixbuf = gtk.gdk.pixbuf_new_from_file(icon_path)
