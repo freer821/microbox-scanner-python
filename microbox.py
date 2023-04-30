@@ -1,5 +1,5 @@
 # $HeadURL: http://svn.berlios.de/svnroot/repos/mirageiv/branches/mirage-0.9.x/mirage.py $
-# $Id: mirage.py 337 2011-02-13 22:40:05Z fredricj $
+# $Id: microbox.py 337 2011-02-13 22:40:05Z fredricj $
 
 __version__ = "0.9.5.2"
 
@@ -56,10 +56,10 @@ except:
 	pass
 
 if gtk.gtk_version < (2, 10, 0):
-	sys.stderr.write("Mirage requires GTK+ 2.10.0 or newer..\n")
+	sys.stderr.write("Microbox requires GTK+ 2.10.0 or newer..\n")
 	sys.exit(1)
 if gtk.pygtk_version < (2, 12, 0):
-	sys.stderr.write("Mirage requires PyGTK 2.12.0 or newer.\n")
+	sys.stderr.write("Microbox requires PyGTK 2.12.0 or newer.\n")
 	sys.exit(1)
 	
 def valid_int(inputstring):
@@ -77,8 +77,8 @@ class Base:
 		
 		# FIX THIS! Does not work on windows and what happens if mo-files exists
 		# in both dirs?
-		gettext.install('mirage', '/usr/share/locale', unicode=1)
-		gettext.install('mirage', '/usr/local/share/locale', unicode=1)
+		gettext.install('microbox', '/usr/share/locale', unicode=1)
+		gettext.install('microbox', '/usr/local/share/locale', unicode=1)
 
 		# Constants
 		self.open_mode_smart = 0
@@ -160,7 +160,7 @@ class Base:
 		self.preloading_images = True
 		self.action_names = ["Open in GIMP", "Create Thumbnail", "Create Thumbnails", "Move to Favorites"]
 		self.action_shortcuts = ["<Control>e", "<Alt>t", "<Control><Alt>t", "<Control><Alt>f"]
-		self.action_commands = ["gimp-remote-2.4 %F", "convert %F -thumbnail 150x150 %Pt_%N.jpg", "convert %F -thumbnail 150x150 %Pt_%N.jpg", "mkdir -p ~/mirage-favs; mv %F ~/mirage-favs; [NEXT]"]
+		self.action_commands = ["gimp-remote-2.4 %F", "convert %F -thumbnail 150x150 %Pt_%N.jpg", "convert %F -thumbnail 150x150 %Pt_%N.jpg", "mkdir -p ~/microbox-favs; mv %F ~/microbox-favs; [NEXT]"]
 		self.action_batch = [False, False, True, False]
 		self.onload_cmd = None
 		self.searching_for_images = False
@@ -219,7 +219,7 @@ class Base:
 
 		# Determine config dir, first try the environment variable XDG_CONFIG_HOME
 		# according to XDG specification and as a fallback use ~/.config/mirage
-		self.config_dir = (os.getenv('XDG_CONFIG_HOME') or os.path.expanduser('~/.config')) + '/mirage'
+		self.config_dir = (os.getenv('XDG_CONFIG_HOME') or os.path.expanduser('~/.config')) + '/microbox'
 		# Load config from disk:
 		conf = ConfigParser.ConfigParser()
 		if os.path.isfile(self.config_dir + '/miragerc'):
@@ -1069,17 +1069,17 @@ class Base:
 		if not self.resource_path_list:
 			#If executed from mirage in bin this points to the basedir
 			basedir_mirage = os.path.split(sys.path[0])[0]
-			#If executed from mirage.py module in python lib this points to the basedir
+			#If executed from microbox.py module in python lib this points to the basedir
 			f0 = os.path.split(__file__)[0].split('/lib')[0]
 			self.resource_path_list = list(set(filter(os.path.isdir, [
-				os.path.join(basedir_mirage, 'share', 'mirage'),
+				os.path.join(basedir_mirage, 'share', 'microbox'),
 				os.path.join(basedir_mirage, 'share', 'pixmaps'),
-				os.path.join(sys.prefix, 'share', 'mirage'),
+				os.path.join(sys.prefix, 'share', 'microbox'),
 				os.path.join(sys.prefix, 'share', 'pixmaps'),
-				os.path.join(sys.prefix, 'local', 'share', 'mirage'),
+				os.path.join(sys.prefix, 'local', 'share', 'microbox'),
 				os.path.join(sys.prefix, 'local', 'share', 'pixmaps'),
 				sys.path[0], #If it's run non-installed
-				os.path.join(f0, 'share', 'mirage'),
+				os.path.join(f0, 'share', 'microbox'),
 				os.path.join(f0, 'share', 'pixmaps'),
 				])))
 		for path in self.resource_path_list:
@@ -1549,7 +1549,6 @@ class Base:
 		return
 
 	def save_settings(self):
-		print "save_settings"
 		conf = ConfigParser.ConfigParser()
 		conf.add_section('window')
 		conf.set('window', 'w', self.window.get_allocation().width)
@@ -4650,9 +4649,9 @@ class Base:
 
 	def update_title(self):
 		if len(self.image_list) == 0:
-			title = "Mirage"
+			title = "Microbox"
 		else:
-			title = "Mirage - " +_("[%(current)i of %(total)i]") % {'current': self.curr_img_in_list+1, 'total': len(self.image_list)} + ' ' + os.path.basename(self.currimg_name)
+			title = "Microbox - " +_("[%(current)i of %(total)i]") % {'current': self.curr_img_in_list+1, 'total': len(self.image_list)} + ' ' + os.path.basename(self.currimg_name)
 			if self.slideshow_mode:
 				title = title + ' - ' + _('Slideshow Mode')
 		self.window.set_title(title)
