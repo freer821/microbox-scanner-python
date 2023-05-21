@@ -2775,6 +2775,7 @@ class Base:
 		combobox_image_type = gtk.combo_box_new_text()
 		combobox_image_type.append_text(_("TIFF"))
 		combobox_image_type.append_text(_("JPEG"))
+		combobox_image_type.append_text(_("PDF"))
 		combobox_image_type.set_active(self.scanner_image_type)
 		hbox_image_types_wrap.pack_start(combobox_image_type, False, False, 5)
 
@@ -3226,14 +3227,15 @@ class Base:
 					ppi = '600'
 
 				response = urllib.urlopen("http://" + self.scanner_ip + ":1234/capture?ppi="+ppi)
-				'''
 				result= json.loads(response.read().decode("utf-8"))
 				if result.get('error', ''):
 					raise Exception(result.get('error', ''))
 
 				response = urllib.urlopen("http://" + self.scanner_ip + ":1234"+result.get('image_path'))
-				'''
-				received_image = self.current_dir + '/scan.tiff'
+				tmp_folder = self.current_dir + '/.microbox'
+				if not os.path.isdir(tmp_folder):
+					os.mkdir(tmp_folder)
+				received_image = tmp_folder + '/scan.tiff'
 				with open(received_image, 'wb') as f:
 					while True:
 						chunk = response.read(8192)
@@ -3249,16 +3251,16 @@ class Base:
 				else:
 					if self.scanner_image_type == 1:
 						file_name = self.current_dir + '/scan_' + date_time_str + '.jpeg'
+					elif self.scanner_image_type == 2:
+						file_name = self.current_dir + '/scan_' + date_time_str + '.pdf'
 
 					params = ' '
-					print self.scanner_image_color
 					if self.scanner_image_color == 1: 
 						params = ' -set colorspace Gray -separate -average '
 					elif self.scanner_image_color == 2:
 						params = ' -threshold 75% '
 
 					command = './libs/magick ' + received_image + params + file_name
-				print command
 				subprocess.check_output(command, shell=True)
 				self.expand_filelist_and_load_image([file_name])
 					
