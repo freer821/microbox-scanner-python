@@ -23,9 +23,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import json
 import pygtk
-import requests
-
 pygtk.require('2.0')
 import gtk
 import os, sys, getopt, ConfigParser, string, gc
@@ -3198,30 +3197,38 @@ class Base:
 
 	def scan(self, action):
 		# TODO: scan action
+		print 'click scan'
 		if self.current_dir:
 			try:
 				self.set_scan_sensitivity(False)
+				print 'set_scan_sensitivity'
 				dialog = self.show_loading_dialog()
-				remote_url = "http://" + self.scanner_ip + ":8766/scan"
-				with requests.get(remote_url, stream=True, timeout=5) as r:
-					r.raise_for_status()
-					received_image = self.current_dir + '/scan.tiff'
-					with open(received_image, 'wb') as f:
-						for chunk in r.iter_content(chunk_size=8192):
-							# If you have chunk encoded response uncomment if
-							# and set chunk_size parameter to None.
-							# if chunk:
-							f.write(chunk)
-					if self.scanner_image_type == 1:
-						file_name = self.current_dir + '/test_' + str(random.randrange(100000)) + '.jpeg'
-						command = './imagemagick/bin/magick ' + received_image + ' ' + file_name
-					else:
-						file_name = self.current_dir + '/test_' + str(random.randrange(100000)) + '.tiff'
-						command = 'mv ' + received_image + ' ' + file_name
+				print 'show_loading_dialog'
 
-					output = subprocess.check_output(command, shell=True)
-					print 'scan: ' + str(output)
-					self.expand_filelist_and_load_image([file_name])
+				response = urllib.urlopen("http://" + self.scanner_ip + ":1234/capture")
+				result= json.loads(response.read().decode("utf-8"))
+				if result.get('error', ''):
+					raise Exception(result.get('error', ''))
+				response = urllib.urlopen("http://" + self.scanner_ip + ":1234"+result.get('image_path'))
+				received_image = self.current_dir + '/scan.tiff'
+				with open(received_image, 'wb') as f:
+					while True:
+						chunk = response.read(8192)
+						if not chunk:
+							break
+						f.write(chunk)
+				
+				if self.scanner_image_type == 1:
+					file_name = self.current_dir + '/scan_' + str(random.randrange(100000)) + '.jpeg'
+					command = './libs/magick ' + received_image + ' ' + file_name
+				else:
+					file_name = self.current_dir + '/scan_' + str(random.randrange(100000)) + '.tiff'
+					command = 'mv ' + received_image + ' ' + file_name
+
+				output = subprocess.check_output(command, shell=True)
+				print 'scan: ' + str(output)
+				self.expand_filelist_and_load_image([file_name])
+					
 			except Exception as err:
 				print err
 				error_dialog = gtk.MessageDialog(self.window, gtk.DIALOG_MODAL, gtk.MESSAGE_WARNING, gtk.BUTTONS_CLOSE,
