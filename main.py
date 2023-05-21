@@ -31,6 +31,8 @@ import os, sys, getopt, ConfigParser, string, gc
 import random, urllib, gobject, gettext, locale
 import stat, time, subprocess, shutil, filecmp
 import tempfile, socket, threading
+from datetime import datetime
+
 try:
 	import hashlib
 	HAS_HASHLIB = True
@@ -186,6 +188,7 @@ class Base:
 		self.scanner_ip = ""
 		self.scanner_image_type = 0
 		self.scanner_image_color = 0
+		self.scanner_image_ppi = 0
 
 		# Read any passed options/arguments:
 		try:
@@ -291,6 +294,8 @@ class Base:
 			self.scanner_image_type = conf.getint('scanner', 'image_type')
 		if conf.has_option('scanner', 'image_color'):
 			self.scanner_image_color = conf.getint('scanner', 'image_color')
+		if conf.has_option('scanner', 'image_ppi'):
+			self.scanner_image_ppi = conf.getint('scanner', 'image_ppi')
 
 		if conf.has_option('actions', 'num_actions'):
 			num_actions = conf.getint('actions', 'num_actions')
@@ -1585,6 +1590,9 @@ class Base:
 		conf.add_section('scanner')
 		conf.set('scanner', 'ip', self.scanner_ip)
 		conf.set('scanner', 'image_type', self.scanner_image_type)
+		conf.set('scanner', 'image_color', self.scanner_image_color)
+		conf.set('scanner', 'image_ppi', self.scanner_image_ppi)
+
 		conf.add_section('actions')
 		conf.set('actions', 'num_actions', len(self.action_names))
 		for i in range(len(self.action_names)):
@@ -2778,6 +2786,16 @@ class Base:
 		combobox_image_color.append_text(_("Black"))
 		combobox_image_color.set_active(self.scanner_image_color)
 		hbox_image_color_wrap.pack_start(combobox_image_color, False, False, 5)
+		
+		hbox_image_ppi_wrap = gtk.HBox()
+		hbox_image_ppi_wrap.pack_start(gtk.Label(_("Image PPI:")), False, False, 0)
+		combobox_image_ppi = gtk.combo_box_new_text()
+		combobox_image_ppi.append_text(_("300"))
+		combobox_image_ppi.append_text(_("400"))
+		combobox_image_ppi.append_text(_("600"))
+		combobox_image_ppi.set_active(self.scanner_image_ppi)
+		hbox_image_ppi_wrap.pack_start(combobox_image_ppi, False, False, 5)
+
 
 		table_scanner.attach(gtk.Label(), 1, 2, 1, 2, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
 		table_scanner.attach(hbox_ip_wrap, 1, 2, 2, 3, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 15, 0)
@@ -2786,7 +2804,7 @@ class Base:
 		table_scanner.attach(gtk.Label(), 1, 2, 5, 6, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
 		table_scanner.attach(hbox_image_color_wrap, 1, 2, 8, 9, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
 		table_scanner.attach(gtk.Label(), 1, 2, 9, 10, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 30, 0)
-		table_scanner.attach(gtk.Label(), 1, 2, 10, 11, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 30, 0)
+		table_scanner.attach(hbox_image_ppi_wrap, 1, 2, 10, 11, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 30, 0)
 		table_scanner.attach(gtk.Label(), 1, 2, 11, 12, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
 		table_scanner.attach(gtk.Label(), 1, 2, 12, 13, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
 		table_scanner.attach(gtk.Label(), 1, 2, 13, 14, gtk.FILL|gtk.EXPAND, gtk.FILL|gtk.EXPAND, 0, 0)
@@ -2856,6 +2874,8 @@ class Base:
 				self.preloadimg_next_in_list = -1
 				self.preloadimg_prev_in_list = -1
 			self.scanner_image_type = combobox_image_type.get_active()
+			self.scanner_image_color = combobox_image_color.get_active()
+			self.scanner_image_ppi = combobox_image_ppi.get_active()
 
 	def save_scanner_ip(self, widget):
 		self.scanner_ip = widget.get_text()
@@ -3196,20 +3216,23 @@ class Base:
 		dialog.destroy()
 
 	def scan(self, action):
-		# TODO: scan action
-		print 'click scan'
 		if self.current_dir:
 			try:
 				self.set_scan_sensitivity(False)
-				print 'set_scan_sensitivity'
-				dialog = self.show_loading_dialog()
-				print 'show_loading_dialog'
+				ppi = '400'
+				if self.scanner_image_ppi == 0:
+					ppi = '300'
+				elif self.scanner_image_ppi == 2:
+					ppi = '600'
 
-				response = urllib.urlopen("http://" + self.scanner_ip + ":1234/capture")
+				response = urllib.urlopen("http://" + self.scanner_ip + ":1234/capture?ppi="+ppi)
+				'''
 				result= json.loads(response.read().decode("utf-8"))
 				if result.get('error', ''):
 					raise Exception(result.get('error', ''))
+
 				response = urllib.urlopen("http://" + self.scanner_ip + ":1234"+result.get('image_path'))
+				'''
 				received_image = self.current_dir + '/scan.tiff'
 				with open(received_image, 'wb') as f:
 					while True:
@@ -3217,16 +3240,26 @@ class Base:
 						if not chunk:
 							break
 						f.write(chunk)
-				
-				if self.scanner_image_type == 1:
-					file_name = self.current_dir + '/scan_' + str(random.randrange(100000)) + '.jpeg'
-					command = './libs/magick ' + received_image + ' ' + file_name
-				else:
-					file_name = self.current_dir + '/scan_' + str(random.randrange(100000)) + '.tiff'
-					command = 'mv ' + received_image + ' ' + file_name
+				now = datetime.now()
+				date_time_str = now.strftime('%Y%m%d%H%M%S')
+				file_name = self.current_dir + '/scan_' + date_time_str + '.tiff'
 
-				output = subprocess.check_output(command, shell=True)
-				print 'scan: ' + str(output)
+				if self.scanner_image_type == 0 and self.scanner_image_color == 0:
+					command = 'mv ' + received_image + ' ' + file_name
+				else:
+					if self.scanner_image_type == 1:
+						file_name = self.current_dir + '/scan_' + date_time_str + '.jpeg'
+
+					params = ' '
+					print self.scanner_image_color
+					if self.scanner_image_color == 1: 
+						params = ' -set colorspace Gray -separate -average '
+					elif self.scanner_image_color == 2:
+						params = ' -threshold 75% '
+
+					command = './libs/magick ' + received_image + params + file_name
+				print command
+				subprocess.check_output(command, shell=True)
 				self.expand_filelist_and_load_image([file_name])
 					
 			except Exception as err:
@@ -3236,7 +3269,6 @@ class Base:
 				error_dialog.run()
 				error_dialog.destroy()
 			finally:
-				self.hide_loading_dialog(dialog)
 				self.set_scan_sensitivity(True)
 
 	def zoom_in(self, action):
