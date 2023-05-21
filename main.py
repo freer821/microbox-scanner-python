@@ -1,5 +1,5 @@
 # $HeadURL: http://svn.berlios.de/svnroot/repos/mirageiv/branches/mirage-0.9.x/mirage.py $
-# $Id: microbox.py 337 2011-02-13 22:40:05Z fredricj $
+# $Id: main.py 337 2011-02-13 22:40:05Z fredricj $
 
 __version__ = "1.0.0"
 
@@ -1071,7 +1071,7 @@ class Base:
 		if not self.resource_path_list:
 			#If executed from mirage in bin this points to the basedir
 			basedir_mirage = os.path.split(sys.path[0])[0]
-			#If executed from microbox.py module in python lib this points to the basedir
+			#If executed from main.py module in python lib this points to the basedir
 			f0 = os.path.split(__file__)[0].split('/lib')[0]
 			self.resource_path_list = list(set(filter(os.path.isdir, [
 				os.path.join(basedir_mirage, 'share', 'microbox'),
@@ -3205,15 +3205,25 @@ class Base:
 				remote_url = "http://" + self.scanner_ip + ":8766/scan"
 				with requests.get(remote_url, stream=True, timeout=5) as r:
 					r.raise_for_status()
-					file_name = self.current_dir + '/test_' + str(random.randrange(100000)) + '.tiff'
-					with open(file_name, 'wb') as f:
+					received_image = self.current_dir + '/scan.tiff'
+					with open(received_image, 'wb') as f:
 						for chunk in r.iter_content(chunk_size=8192):
 							# If you have chunk encoded response uncomment if
 							# and set chunk_size parameter to None.
 							# if chunk:
 							f.write(chunk)
+					if self.scanner_image_type == 1:
+						file_name = self.current_dir + '/test_' + str(random.randrange(100000)) + '.jpeg'
+						command = './imagemagick/bin/magick ' + received_image + ' ' + file_name
+					else:
+						file_name = self.current_dir + '/test_' + str(random.randrange(100000)) + '.tiff'
+						command = 'mv ' + received_image + ' ' + file_name
+
+					output = subprocess.check_output(command, shell=True)
+					print 'scan: ' + str(output)
 					self.expand_filelist_and_load_image([file_name])
 			except Exception as err:
+				print err
 				error_dialog = gtk.MessageDialog(self.window, gtk.DIALOG_MODAL, gtk.MESSAGE_WARNING, gtk.BUTTONS_CLOSE,
 												 _('Unable to call the Scanner Server.'))
 				error_dialog.run()

@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+
+__author__ = "Zhenyu Geng"
+__email__ = "zge821@outlook.com"
+__license__ = """
+Microbox, a simple GTK+ Scanner Viewer
+"""
+
+import main
+
+if __name__ == "__main__":
+    app = main.Base()
+    try:
+        app.main()
+    except KeyboardInterrupt:
+        pass
