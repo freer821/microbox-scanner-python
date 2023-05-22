@@ -1,0 +1,4 @@
+cd ImageMagick-7.1.1
+./configure --prefix=/home/zhenyu/work/imagemagick --enable-delegate-build --disable-shared --disable-installed --enable-static --without-modules --with-zero-configuration
+make
+sudo make install
