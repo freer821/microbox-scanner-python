@@ -80,6 +80,7 @@ class Base:
 		# in both dirs?
 		gettext.install('microbox', '/usr/share/locale', unicode=1)
 		gettext.install('microbox', '/usr/local/share/locale', unicode=1)
+		gettext.install('microbox', 'locale', unicode=1)
 
 		# Constants
 		self.open_mode_smart = 0
