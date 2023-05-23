@@ -2,7 +2,8 @@
 
 ##-------------先找到一个现成已经打好的uos的deb，如test.deb
 #用ar命令解压deb包
-ar -x test.deb
+#ar -x test.deb
+#此步骤已经完成，目前目录中的三个文件夹均已经是符合uos打包标准的内容
 #会得到三个文件 control.tar.xz data.tar.xz debian-binary
 #使用tar -xvf解压缩control.tar.xz文件
 #control.tar.xz中包含control md5sums postinst postrm四个文件
@@ -21,6 +22,15 @@ ar -x test.deb
 
 #files中包含要安装的程序文件，即build之后需要copy到系统中的文件
 #build成功后手动更新相应文件即可
+
+###-------------------------------最主要的过程，打包的主要文件copy
+# build microbox程序,进入程序主目录
+先运行python setup.py build，生产编译后的so程序文件
+#手动copy build文件下的两个so文件，copy到 uos_pack\data\opt\apps\com.deepin.mirage\files\mirage下
+#手动copy build出来的zhcn的mo文件，copy到 uos_pack\data\opt\apps\com.deepin.mirage\files\mirage\locale\zh_CN\LC_MESSAGES下
+#手动copy libs文件夹，copy到 uos_pack\data\opt\apps\com.deepin.mirage\files\mirage\下
+###-----------------------------------------------------------------------
+
 #info文件中写的是此程序的包信息，手动编辑更新即可
 
 #使用tar -Jcf data.tar.xz opt命令重新打包压缩 data.tar.xz文件
