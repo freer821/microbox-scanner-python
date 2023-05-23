@@ -66,16 +66,16 @@ setup(name='MicroBox',
 
 # Cleanup (remove /build, /mo, and *.pyc files:
 print "Cleaning up..."
-try:
-	removeall("build/")
-	os.rmdir("build/")
-except:
-	pass
-try:
-	removeall("mo/")
-	os.rmdir("mo/")
-except:
-	pass
+#try:
+#	removeall("build/")
+#	os.rmdir("build/")
+#except:
+#	pass
+#try:
+#	removeall("mo/")
+#	os.rmdir("mo/")
+#except:
+#	pass
 try:
 	for f in os.listdir("."):
 		if os.path.isfile(f):
