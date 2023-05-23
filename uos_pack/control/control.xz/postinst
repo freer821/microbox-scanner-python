@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Link to the binary
+ln -sf '/opt/apps/com.deepin.mirage/files/mirage/mirage' '/usr/local/bin/mirage'
+
+sudo chmod 4755 '/opt/apps/com.deepin.mirage/files/mirage/mirage' || true
+
+
+update-mime-database /usr/share/mime || true
+update-desktop-database /usr/share/applications || true
+
+#sudo chmod -R 755 /opt/apps/com.deepin.mirage/

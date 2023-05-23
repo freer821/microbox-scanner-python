@@ -1,0 +1,12 @@
+Package: com.deepin.mirage
+Version: 1.0.0
+License: GPL-3.0-or-later
+Vendor: Zhenyu Geng
+Architecture: amd64
+Maintainer: Zhenyu Geng
+Installed-Size: 348965
+Depends: libgtk-3-0
+Section: default
+Priority: optional
+Homepage: https://github.com/freer821/microboxscanner
+Description: mirage

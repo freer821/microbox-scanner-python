@@ -1,0 +1,14 @@
+[Desktop Entry]
+Categories=GTK;Graphics;2DGraphics;Viewer;;
+Comment=A fast GTK+ Image Viewer
+Comment[zh_CN]=A fast GTK+ Image Viewer
+Comment[zh_TW]=A fast GTK+ Image Viewer
+Exec="/opt/apps/com.deepin.mirage/files/mirage/AppRun" %U
+Icon=/opt/apps/com.deepin.mirage/files/mirage/mirage.png
+Name=mirage
+Name[zh_CN]=mirage
+Name[zh_TW]=mirage
+StartupWMClass=mirage
+Terminal=false
+Type=Application
+X-Deepin-Vendor=user-custom
